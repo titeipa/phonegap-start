@@ -23,11 +23,6 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
-            $(document).on('touchstart', function(e) {
-                if (e.target.nodeName !== 'INPUT') {
-                    e.preventDefault();
-                }
-            });
             $(function() {
                 $('#canvas1').sketch();
             });

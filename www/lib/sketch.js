@@ -128,7 +128,6 @@ var __slice = Array.prototype.slice;
             switch (e.type) {
                 case 'mousedown':
                 case 'touchstart':
-                    e.preventDefault();
                     if (this.painting) {
                         this.stopPainting();
                     }
