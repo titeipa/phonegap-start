@@ -74,7 +74,7 @@ h1 {
     font-size:24px;
     font-weight:normal;
     margin:0px;
-    overflow:visible;
+    overflow:hidden;
     padding:0px;
     text-align:center;
 }

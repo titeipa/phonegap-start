@@ -17,6 +17,11 @@
 * under the License.
 */
 
+function touchMove (event) {
+    // Prevent scrolling on this element
+    event.preventDefault();
+}
+
 var app = {
     initialize: function () {
         this.bind(); 
