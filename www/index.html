@@ -31,6 +31,15 @@
                 //$('#canvas1').sketch();
             });
             app.initialize();
+
+            - (void)webViewDidFinishLoad:(UIWebView *)theWebView
+                {
+                for(id subview in theWebView.subviews) {
+                if([[subview class]isSubclassOfClass:[UIScrollView class]])
+                ((UIScrollView *)subview).bounces = NO;
+                }
+
+
         </script>
     </body>
 </html>
