@@ -13,33 +13,39 @@
         <script src="lib/sketch.js"></script>
         <title>Hello World</title>
     </head>
-    <body ontouchmove="touchMove(event);">
-        <div data-role="content">
-            Draw on canvas:
-            <canvas id="canvas1" ></canvas>
+    <body>
+        <div id="container" data-role="content">
         </div>
-        <button class="ui-btn">Clear</button>
+        <button class="ui-btn" id="clear">Clear</button>
         <!-- <script type="text/javascript" src="phonegap.js"></script> -->
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            window.addEventListener('load', function() {
-                document.body.addEventListener('touchmove', function(e) {
-                    e.preventDefault();
-                }, false);
-            }, false);
+
             $(function() {
-                //$('#canvas1').sketch();
-            });
-            app.initialize();
+                try {
+                var sketch = Sketch.create({
+                    container: document.getElementById('container'),
+                    autoclear: false,
 
-            - (void)webViewDidFinishLoad:(UIWebView *)theWebView
-                {
-                for(id subview in theWebView.subviews) {
-                if([[subview class]isSubclassOfClass:[UIScrollView class]])
-                ((UIScrollView *)subview).bounces = NO;
+                    setup: function() {
+                        this.lineCap = "round";
+                        this.lineJoin = "round";
+                        this.lineWidth = 8;
+                        this.fillStyle = this.strokeStyle = '#000';
+                    },
+                    update: function() {},
+                    touchmove: function(e) {
+                        // this.beginPath();
+                        this.moveTo( e.ox, e.oy ); // or ctx.mouse.ox, ctx.mouse.oy74
+                        this.lineTo( e.x, e.y ); // or ctx.mouse.x, ctx.mouse.y
+                        this.stroke();
+                    }
+                });
+                } catch (_error) {
+                    console.log('ERROR');
                 }
-
-
+                $('#clear').bind("click tap", sketch.clear());
+            });
         </script>
     </body>
 </html>
