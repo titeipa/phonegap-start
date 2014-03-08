@@ -15,37 +15,12 @@
     </head>
     <body>
         <div id="container" data-role="content">
+            <div class="tools">
+                <a href="#colors_sketch" data-download="png" style="float: right; width: 100px;">Download</a>
+            </div>
+            <canvas id="sketch" width="800" height="300"></canvas>
         </div>
-        <button class="ui-btn" id="clear">Clear</button>
         <!-- <script type="text/javascript" src="phonegap.js"></script> -->
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-
-            $(function() {
-                try {
-                var sketch = Sketch.create({
-                    container: document.getElementById('container'),
-                    autoclear: false,
-
-                    setup: function() {
-                        this.lineCap = "round";
-                        this.lineJoin = "round";
-                        this.lineWidth = 8;
-                        this.fillStyle = this.strokeStyle = '#000';
-                    },
-                    update: function() {},
-                    touchmove: function(e) {
-                        // this.beginPath();
-                        this.moveTo( e.ox, e.oy ); // or ctx.mouse.ox, ctx.mouse.oy74
-                        this.lineTo( e.x, e.y ); // or ctx.mouse.x, ctx.mouse.y
-                        this.stroke();
-                    }
-                });
-                } catch (_error) {
-                    console.log('ERROR');
-                }
-                $('#clear').bind("click tap", sketch.clear());
-            });
-        </script>
     </body>
 </html>

@@ -115,7 +115,19 @@ h1 {
 }
 
 #container > canvas {
-    width:100%; 
     background:white; 
     border: 3px solid #333;
+}
+
+.tools a {
+    border: 1px solid black;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    color: black;
+    font-weight: bold;
 }
