@@ -25,15 +25,14 @@ var app = {
         document.addEventListener('deviceready', this.deviceready, false);
     },
     deviceready: function () {
-        
+        $(function() {
+            $.each(['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#000', '#fff'], function() {
+                $('#container .tools').append("<a href='#sketch' data-color='" + this + "' style='width: 10px; background: " + this + ";'></a> ");
+            });
+            $.each([3, 5, 10, 15], function() {
+                $('#container .tools').append("<a href='#sketch' data-size='" + this + "' style='background: #ccc'>" + this + "</a> ");
+            });
+            $('#sketch').sketch();
+        });   
     }
 };
-$(function() {
-    $.each(['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#000', '#fff'], function() {
-        $('#container .tools').append("<a href='#sketch' data-color='" + this + "' style='width: 10px; background: " + this + ";'></a> ");
-    });
-    $.each([3, 5, 10, 15], function() {
-        $('#container .tools').append("<a href='#sketch' data-size='" + this + "' style='background: #ccc'>" + this + "</a> ");
-    });
-    $('#sketch').sketch();
-});
