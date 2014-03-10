@@ -17,6 +17,63 @@
 * under the License.
 */
 
+/* Call like: WritingBoard('#canvasid'); */
+function WritingBoard(el) {
+    this.penColor = '#000000';
+    this.penSize = 5;
+    this.canvas = $(el); 
+    this.context = this.canvas[0].getContext('2d');
+    this.points = [];
+    this.is_down = false;
+    this.canvas.on('vmouseover vmouseout vmousedown vmouseup vmousemove', $.proxy(this.onEvent, this));
+}
+
+WritingBoard.prototype.onEvent = function(event) {
+    event.preventDefault();
+    switch (event.type) {
+    case 'vmouseover':
+        break;
+    case 'vmouseout':
+        this.is_down = false;
+        break;
+    case 'vmousedown':
+        this.is_down = true;
+        break;
+    case 'vmouseup':
+        this.is_down = false;
+        this.points = [];
+        break;
+    case 'vmousemove':
+        if (this.is_down) {
+            this.points.push ({
+                x: event.pageX - this.canvas.offset().left,
+                y: event.pageY - this.canvas.offset().top
+            });
+            this.draw();
+        }
+        break;
+    default:
+        console.log('ignored');
+    }
+}
+
+WritingBoard.prototype.draw = function() {
+    if (this.points.length < 2) {
+        return;
+    }
+    var p1 = this.points[this.points.length - 2];
+    var p2 = this.points[this.points.length - 1];
+
+    this.context.beginPath();
+    this.context.moveTo(p1.x, p1.y);
+    this.context.lineTo(p2.x, p2.y);
+    this.context.lineWidth = this.penSize;
+    this.context.lineJoin = "round";
+    this.context.lineCap = "round";
+    this.context.strokeStyle = this.penColor;
+    this.context.stroke();
+}
+
 var app = {
     initialize: function () {
         this.bind(); 
@@ -25,14 +82,8 @@ var app = {
         document.addEventListener('deviceready', this.deviceready, false);
     },
     deviceready: function () {
-        $(function() {
-            $.each(['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#000', '#fff'], function() {
-                $('#container .tools').append("<a href='#sketch' data-color='" + this + "' style='width: 10px; background: " + this + ";'></a> ");
-            });
-            $.each([3, 5, 10, 15], function() {
-                $('#container .tools').append("<a href='#sketch' data-size='" + this + "' style='background: #ccc'>" + this + "</a> ");
-            });
-            $('#sketch').sketch();
-        });   
+        $(function(){
+            var wb = new WritingBoard('#sketch');
+        });
     }
 };
