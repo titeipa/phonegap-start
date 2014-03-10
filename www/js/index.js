@@ -25,25 +25,24 @@ function WritingBoard(el) {
     this.context = this.canvas[0].getContext('2d');
     this.points = [];
     this.is_down = false;
-    this.canvas.on('vmouseover vmouseout vmousedown vmouseup vmousemove', $.proxy(this.onEvent, this));
+    this.canvas.on('touchend touchstart touchmove touchleave', $.proxy(this.onEvent, this));
 }
 
 WritingBoard.prototype.onEvent = function(event) {
     event.preventDefault();
     switch (event.type) {
-    case 'vmouseover':
-        break;
-    case 'vmouseout':
-        this.is_down = false;
-        break;
-    case 'vmousedown':
-        this.is_down = true;
-        break;
-    case 'vmouseup':
+    case 'touchleave':
         this.is_down = false;
         this.points = [];
         break;
-    case 'vmousemove':
+    case 'touchstart':
+        this.is_down = true;
+        break;
+    case 'touchend':
+        this.is_down = false;
+        this.points = [];
+        break;
+    case 'touchmove':
         if (this.is_down) {
             this.points.push ({
                 x: event.pageX - this.canvas.offset().left,
